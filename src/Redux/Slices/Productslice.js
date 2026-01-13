@@ -13,8 +13,14 @@ export const fetchProducts = createAsyncThunk(
   "user/fetchProducts",
   async (_, { rejectWithValue }) => {
     try {
+      const token=localStorage.getItem("userToken");
       const response = await axios.get(
-        `${BASE_URL}/user/products/view-products`
+        `${BASE_URL}/user/products/view-products`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       return response.data;
     } catch (error) {
